@@ -17,12 +17,6 @@ public class ArrayStorage {
         if (resume.uuid == null || resume.uuid.isBlank()) return;
         if (size >= storage.length) return;
 
-        for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(resume.uuid)) {
-                storage[i] = resume;
-                return;
-            }
-        }
         storage[size++] = resume;
     }
 
