@@ -1,4 +1,4 @@
-package com.github.absmarat;
+package com.github.absmarat.webapp;
 
 import com.github.absmarat.webapp.model.Resume;
 import com.github.absmarat.webapp.storage.ArrayStorage;
@@ -37,7 +37,7 @@ public class MainArray {
                     break;
                 case "save":
                     resume = new Resume();
-                    resume.uuid = uuid;
+                    resume.setUuid(uuid);
                     ARRAY_STORAGE.save(resume);
                     printAll();
                     break;
