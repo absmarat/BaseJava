@@ -1,5 +1,10 @@
+package com.github.absmarat;
+
+import com.github.absmarat.webapp.model.Resume;
+import com.github.absmarat.webapp.storage.ArrayStorage;
+
 /**
- * Test for your ArrayStorage implementation
+ * Test for your com.github.absmarat.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
