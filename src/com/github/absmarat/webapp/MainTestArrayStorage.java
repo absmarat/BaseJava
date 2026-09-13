@@ -1,4 +1,4 @@
-package com.github.absmarat;
+package com.github.absmarat.webapp;
 
 import com.github.absmarat.webapp.model.Resume;
 import com.github.absmarat.webapp.storage.ArrayStorage;
@@ -11,23 +11,23 @@ public class MainTestArrayStorage {
 
     public static void main(String[] args) {
         Resume resume1 = new Resume();
-        resume1.uuid = "uuid1";
+        resume1.setUuid("uuid1");
         Resume resume2 = new Resume();
-        resume2.uuid = "uuid2";
+        resume2.setUuid("uuid2");
         Resume resume3 = new Resume();
-        resume3.uuid = "uuid3";
+        resume3.setUuid("uuid3");
 
         ARRAY_STORAGE.save(resume1);
         ARRAY_STORAGE.save(resume2);
         ARRAY_STORAGE.save(resume3);
 
-        System.out.println("Get resume1: " + ARRAY_STORAGE.get(resume1.uuid));
+        System.out.println("Get resume1: " + ARRAY_STORAGE.get(resume1.getUuid()));
         System.out.println("Size: " + ARRAY_STORAGE.size());
 
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
         printAll();
-        ARRAY_STORAGE.delete(resume1.uuid);
+        ARRAY_STORAGE.delete(resume1.getUuid());
         printAll();
         ARRAY_STORAGE.clear();
         printAll();
