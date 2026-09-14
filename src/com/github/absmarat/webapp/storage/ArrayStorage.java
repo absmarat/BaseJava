@@ -20,7 +20,10 @@ public class ArrayStorage {
         if (resume == null) return;
         if (resume.getUuid() == null || resume.getUuid().isBlank()) return;
         if (size >= storage.length) return;
-
+        if (get(resume.getUuid()) != null) {
+            update(resume);
+            return;
+        }
         storage[size++] = resume;
     }
 
