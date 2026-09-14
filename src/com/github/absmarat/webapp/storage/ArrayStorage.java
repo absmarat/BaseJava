@@ -27,6 +27,19 @@ public class ArrayStorage {
         storage[size++] = resume;
     }
 
+    private void update(Resume resume) {
+        if (resume == null) return;
+        if (resume.getUuid() == null || resume.getUuid().isBlank()) return;
+
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(resume.getUuid())) {
+                storage[i] = resume;
+                System.out.println("Резюме " + resume + " обнавлёно!");
+                return;
+            }
+        }
+    }
+
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
