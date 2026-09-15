@@ -18,10 +18,18 @@ public class ArrayStorage {
 
     public void save(Resume resume) {
         if (resume == null) return;
-        if (resume.getUuid() == null || resume.getUuid().isBlank()) return;
-        if (size >= storage.length) return;
-        if (get(resume.getUuid()) != null) {
-            update(resume);
+
+        String uuid = resume.getUuid();
+        if (uuid == null || uuid.isBlank()) return;
+        if (size >= storage.length) {
+            System.out.println("Хранилище резюме переполнено!");
+            return;
+        }
+
+        int index = findIndexByUuid(uuid);
+        if (index != -1) {
+            System.out.println("Резюме " + uuid + " уже существует");
+            update(resume, index);
             return;
         }
         storage[size++] = resume;
