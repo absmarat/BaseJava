@@ -54,17 +54,17 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                if (i < size - 1) {
-                    System.arraycopy(storage, i + 1, storage, i, size - i - 1);
-                }
-                storage[--size] = null;
-                System.out.println("\nРезюме " + uuid + " удалено!");
-                return;
-            }
+        int index = findIndexByUuid(uuid);
+        if (index == -1) {
+            System.out.println("\nРезюме " + uuid + " не найдено!");
+            return;
         }
-        System.out.println("Резюме " + uuid + " не найдено!");
+
+        if (index >= 0 && index < size - 1) {
+            System.arraycopy(storage, index + 1, storage, index, size - index - 1);
+        }
+        storage[--size] = null;
+        System.out.println("\nРезюме " + uuid + " удалено!");
     }
 
     private int findIndexByUuid(String uuid) {
