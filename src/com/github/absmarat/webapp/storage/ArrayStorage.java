@@ -56,9 +56,20 @@ public class ArrayStorage {
                     System.arraycopy(storage, i + 1, storage, i, size - i - 1);
                 }
                 storage[--size] = null;
+                System.out.println("\nРезюме " + uuid + " удалено!");
                 return;
             }
         }
+        System.out.println("Резюме " + uuid + " не найдено!");
+    }
+
+    private int findIndexByUuid(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     /**
