@@ -45,11 +45,11 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }
+        int index = findIndexByUuid(uuid);
+        if (index != -1) {
+            return storage[index];
         }
+        System.out.println("\nРезюме " + uuid + " не найдено!");
         return null;
     }
 
