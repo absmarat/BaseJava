@@ -29,7 +29,6 @@ public class ArrayStorage {
         int index = findIndexByUuid(uuid);
         if (index != -1) {
             System.out.println("Резюме " + uuid + " уже существует");
-            update(resume, index);
             return;
         }
         storage[size++] = resume;
