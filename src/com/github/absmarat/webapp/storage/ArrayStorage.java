@@ -59,16 +59,12 @@ public class ArrayStorage {
 
     public void delete(String uuid) {
         int index = findIndexByUuid(uuid);
-        if (index == -1) {
+        if (index != -1) {
+            storage[index] = storage[size - 1];
+            storage[--size] = null;
+        } else {
             System.out.println("\nРезюме " + uuid + " не найдено!");
-            return;
         }
-
-        if (index >= 0 && index < size - 1) {
-            System.arraycopy(storage, index + 1, storage, index, size - index - 1);
-        }
-        storage[--size] = null;
-        System.out.println("\nРезюме " + uuid + " удалено!");
     }
 
     private int findIndexByUuid(String uuid) {
