@@ -34,13 +34,18 @@ public class ArrayStorage {
         storage[size++] = resume;
     }
 
-    private void update(Resume resume, int index) {
+    public void update(Resume resume) {
         if (resume == null) return;
 
         String uuid = resume.getUuid();
         if (uuid == null || uuid.isBlank()) return;
-        storage[index] = resume;
-        System.out.println("Резюме " + resume + " обновлено!");
+
+        int index = findIndexByUuid(uuid);
+        if (index != -1) {
+            storage[index] = resume;
+        } else {
+            System.out.println("Резюме " + uuid + " не найдено!");
+        }
     }
 
     public Resume get(String uuid) {
