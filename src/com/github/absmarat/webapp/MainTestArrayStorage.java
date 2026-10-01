@@ -2,12 +2,16 @@ package com.github.absmarat.webapp;
 
 import com.github.absmarat.webapp.model.Resume;
 import com.github.absmarat.webapp.storage.ArrayStorage;
+import com.github.absmarat.webapp.storage.SortedArrayStorage;
+import com.github.absmarat.webapp.storage.Storage;
 
 /**
  * Test for your com.github.absmarat.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+//    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    static final Storage ARRAY_STORAGE = new SortedArrayStorage();
+
 
     public static void main(String[] args) {
         Resume resume1 = new Resume();
@@ -26,6 +30,7 @@ public class MainTestArrayStorage {
 
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
+        ARRAY_STORAGE.update(resume3);
         printAll();
         ARRAY_STORAGE.delete(resume1.getUuid());
         printAll();
