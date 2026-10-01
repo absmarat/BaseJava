@@ -2,6 +2,8 @@ package com.github.absmarat.webapp;
 
 import com.github.absmarat.webapp.model.Resume;
 import com.github.absmarat.webapp.storage.ArrayStorage;
+import com.github.absmarat.webapp.storage.Storage;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +14,7 @@ import java.io.InputStreamReader;
  * (just run, no need to understand)
  */
 public class MainArray {
-    private final static ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
