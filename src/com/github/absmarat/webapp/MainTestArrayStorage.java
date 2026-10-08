@@ -9,7 +9,7 @@ import com.github.absmarat.webapp.storage.Storage;
  * Test for your com.github.absmarat.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-//    static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+//    static final Storage ARRAY_STORAGE = new ArrayStorage();
     static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
 
