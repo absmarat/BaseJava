@@ -2,58 +2,21 @@ package com.github.absmarat.webapp.storage;
 
 import com.github.absmarat.webapp.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */
 public class ArrayStorage extends AbstractArrayStorage {
-
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
-
-    public void save(Resume resume) {
-        if (resume == null) return;
-
-        String uuid = resume.getUuid();
-        if (uuid == null || uuid.isBlank()) return;
-        if (size >= STORAGE_LIMIT) {
-            System.out.println("Хранилище резюме переполнено!");
-            return;
-        }
-
-        int index = getIndex(uuid);
-        if (index != -1) {
-            System.out.println("Резюме " + uuid + " уже существует");
-            return;
-        }
-        storage[size++] = resume;
-    }
-
-    public void update(Resume resume) {
-        if (resume == null) return;
-
-        String uuid = resume.getUuid();
-        if (uuid == null || uuid.isBlank()) return;
-
-        int index = getIndex(uuid);
-        if (index != -1) {
-            storage[index] = resume;
-        } else {
-            System.out.println("Резюме " + uuid + " не найдено!");
+    @Override
+    protected void saveResume(Resume resume, int index) {
+        if (index < 0) {
+            storage[size] = resume;
         }
     }
 
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index != -1) {
-            storage[index] = storage[size - 1];
-            storage[--size] = null;
-        } else {
-            System.out.println("\nРезюме " + uuid + " не найдено!");
-        }
+    @Override
+    public void deleteResume(int index) {
+        storage[index] = storage[size - 1];
+        storage[size - 1] = null;
     }
 
     protected int getIndex(String uuid) {
@@ -63,12 +26,5 @@ public class ArrayStorage extends AbstractArrayStorage {
             }
         }
         return -1;
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
     }
 }
