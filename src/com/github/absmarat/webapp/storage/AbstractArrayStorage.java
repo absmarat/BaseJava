@@ -1,8 +1,8 @@
 package com.github.absmarat.webapp.storage;
+
 import com.github.absmarat.webapp.model.Resume;
 
 import java.util.Arrays;
-
 
 public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10000;
@@ -18,7 +18,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     @Override
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        int index = findIndex(resume.getUuid());
         if (index < 0) {
             System.out.println("Резюме " + resume.getUuid() + " не найдено");
         } else {
@@ -29,7 +29,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     @Override
     public final void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
+        int index = findIndex(resume.getUuid());
         if (index >= 0) {
             System.out.println("Резюме " + resume.getUuid() + " уже существует");
         } else if (size >= STORAGE_LIMIT) {
@@ -42,7 +42,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     @Override
     public final Resume get(String uuid) {
-        int index = getIndex(uuid);
+        int index = findIndex(uuid);
         if (index < 0) {
             System.out.println("Резюме " + uuid + " не найдено!");
             return null;
@@ -52,7 +52,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     @Override
     public final void delete(String uuid) {
-        int index = getIndex(uuid);
+        int index = findIndex(uuid);
         if (index < 0) {
             System.out.println("Резюме " + uuid + " не найдено!");
         } else {
@@ -72,7 +72,10 @@ public abstract class AbstractArrayStorage implements Storage {
     public int size() {
         return size;
     }
+
     protected abstract void saveResume(Resume resume, int index);
-    protected abstract int getIndex(String uuid);
+
+    protected abstract int findIndex(String uuid);
+
     protected abstract void deleteResume(int index);
 }
