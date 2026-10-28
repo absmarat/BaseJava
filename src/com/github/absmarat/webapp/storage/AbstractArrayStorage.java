@@ -1,5 +1,8 @@
 package com.github.absmarat.webapp.storage;
 
+import com.github.absmarat.webapp.exception.ExistStorageException;
+import com.github.absmarat.webapp.exception.NotExistStorageException;
+import com.github.absmarat.webapp.exception.StorageException;
 import com.github.absmarat.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -20,10 +23,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index < 0) {
-            System.out.println("Резюме " + resume.getUuid() + " не найдено");
+            throw new NotExistStorageException(resume.getUuid());
         } else {
             storage[index] = resume;
-            System.out.println("Резюме " + resume + " обновлено!");
         }
     }
 
@@ -31,9 +33,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void save(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index >= 0) {
-            System.out.println("Резюме " + resume.getUuid() + " уже существует");
+            throw new ExistStorageException(resume.getUuid());
         } else if (size >= STORAGE_LIMIT) {
-            System.out.println("Хранилище заполнено!");
+            throw new StorageException("Storage overflow", resume.getUuid());
         } else {
             saveResume(resume, index);
             size++;
@@ -44,8 +46,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final Resume get(String uuid) {
         int index = findIndex(uuid);
         if (index < 0) {
-            System.out.println("Резюме " + uuid + " не найдено!");
-            return null;
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -54,7 +55,7 @@ public abstract class AbstractArrayStorage implements Storage {
     public final void delete(String uuid) {
         int index = findIndex(uuid);
         if (index < 0) {
-            System.out.println("Резюме " + uuid + " не найдено!");
+            throw new NotExistStorageException(uuid);
         } else {
             deleteResume(index);
             storage[size - 1] = null;

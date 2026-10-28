@@ -9,17 +9,14 @@ import com.github.absmarat.webapp.storage.Storage;
  * Test for your com.github.absmarat.webapp.storage.ArrayStorage implementation
  */
 public class MainTestArrayStorage {
-//    static final Storage ARRAY_STORAGE = new ArrayStorage();
+    //    static final Storage ARRAY_STORAGE = new ArrayStorage();
     static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
 
     public static void main(String[] args) {
-        Resume resume1 = new Resume();
-        resume1.setUuid("uuid1");
-        Resume resume2 = new Resume();
-        resume2.setUuid("uuid2");
-        Resume resume3 = new Resume();
-        resume3.setUuid("uuid3");
+        Resume resume1 = new Resume("uuid1");
+        Resume resume2 = new Resume("uuid2");
+        Resume resume3 = new Resume("uuid3");
 
         ARRAY_STORAGE.save(resume1);
         ARRAY_STORAGE.save(resume2);
