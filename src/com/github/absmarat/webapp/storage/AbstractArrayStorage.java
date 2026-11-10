@@ -20,7 +20,7 @@ public abstract class AbstractArrayStorage implements Storage {
     }
 
     @Override
-    public void update(Resume resume) {
+    public final void update(Resume resume) {
         int index = findIndex(resume.getUuid());
         if (index < 0) {
             throw new NotExistStorageException(resume.getUuid());
@@ -71,6 +71,7 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOf(storage, size);
     }
 
+    @Override
     public int size() {
         return size;
     }
