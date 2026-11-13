@@ -1,4 +1,4 @@
-package com.github.absmarat.webapp.storage;
+package com.github.absmarat.webapp;
 
 public class MainString {
     public static void main(String[] args) {

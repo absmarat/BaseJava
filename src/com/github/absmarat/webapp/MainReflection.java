@@ -1,4 +1,4 @@
-package com.github.absmarat.webapp.storage;
+package com.github.absmarat.webapp;
 
 import com.github.absmarat.webapp.model.Resume;
 
@@ -15,6 +15,7 @@ public class MainReflection {
         System.out.println(field.getName());
         System.out.println(field.get(resume));
         field.set(resume, "new_uuid");
+
         // TODO : invoke r.toString via reflection
         Method toStringMethod = resume.getClass().getMethod("toString");
         String result = (String) toStringMethod.invoke(resume);
