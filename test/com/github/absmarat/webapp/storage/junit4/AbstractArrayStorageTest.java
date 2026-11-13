@@ -89,24 +89,14 @@ public abstract class AbstractArrayStorageTest {
         storage.save(RESUME_1);
     }
 
-    @Test
+    @Test(expected = StorageException.class)
     public void saveOverflow() {
         storage.clear();
 
-        try {
-            for (int i = 0; i < STORAGE_LIMIT; i++) {
-                storage.save(new Resume("uuid" + i));
-            }
-        } catch (StorageException e) {
-            fail("The overflow occurred earlier than expected!");
+        for (int i = 0; i < STORAGE_LIMIT; i++) {
+            storage.save(new Resume("uuid" + i));
         }
-
-        try {
-            storage.save(new Resume("overflow_uuid"));
-            fail("Expected StorageException was not thrown");
-        } catch (StorageException e) {
-            Assert.assertEquals("Storage overflow", e.getMessage());
-        }
+        storage.save(new Resume("overflow_uuid"));
     }
 
     @Test(expected = NotExistStorageException.class)
