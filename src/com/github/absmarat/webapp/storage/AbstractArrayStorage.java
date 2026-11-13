@@ -22,29 +22,32 @@ public abstract class AbstractArrayStorage implements Storage {
     @Override
     public final void update(Resume resume) {
         int index = findIndex(resume.getUuid());
+
         if (index < 0) {
             throw new NotExistStorageException(resume.getUuid());
-        } else {
-            storage[index] = resume;
         }
+        storage[index] = resume;
     }
 
     @Override
     public final void save(Resume resume) {
         int index = findIndex(resume.getUuid());
+
         if (index >= 0) {
             throw new ExistStorageException(resume.getUuid());
-        } else if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", resume.getUuid());
-        } else {
-            saveResume(resume, index);
-            size++;
         }
+
+        if (size >= STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", resume.getUuid());
+        }
+        saveResume(resume, index);
+        size++;
     }
 
     @Override
     public final Resume get(String uuid) {
         int index = findIndex(uuid);
+
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         }
@@ -54,13 +57,13 @@ public abstract class AbstractArrayStorage implements Storage {
     @Override
     public final void delete(String uuid) {
         int index = findIndex(uuid);
+
         if (index < 0) {
             throw new NotExistStorageException(uuid);
-        } else {
-            deleteResume(index);
-            storage[size - 1] = null;
-            size--;
         }
+        deleteResume(index);
+        storage[size - 1] = null;
+        size--;
     }
 
     /**
