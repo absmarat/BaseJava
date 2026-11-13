@@ -11,15 +11,12 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import static com.github.absmarat.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
+import static org.junit.Assert.*;
 
+import static com.github.absmarat.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
 
 public abstract class AbstractArrayStorageTest {
     private Storage storage;
-
-    public AbstractArrayStorageTest(Storage storage) {
-        this.storage = storage;
-    }
 
     private static final String UUID_1 = "uuid1";
     private static final Resume RESUME_1 = new Resume(UUID_1);
@@ -29,6 +26,10 @@ public abstract class AbstractArrayStorageTest {
 
     private static final String UUID_3 = "uuid3";
     private static final Resume RESUME_3 = new Resume(UUID_3);
+
+    public AbstractArrayStorageTest(Storage storage) {
+        this.storage = storage;
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -40,22 +41,22 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void size() throws Exception {
-        Assert.assertEquals(3, storage.size());
+        assertEquals(3, storage.size());
     }
 
     @Test
     public void clear() throws Exception {
         storage.clear();
-        Assert.assertEquals(0, storage.size());
-        Assert.assertEquals(0, storage.getAll().length);
+        assertEquals(0, storage.size());
+        assertEquals(0, storage.getAll().length);
     }
 
     @Test
     public void update() throws Exception {
         Resume updated = new Resume(UUID_1);
         storage.update(updated);
-        Assert.assertEquals(3, storage.size());
-        Assert.assertEquals(updated, storage.get(UUID_1));
+        assertEquals(3, storage.size());
+        assertEquals(updated, storage.get(UUID_1));
     }
 
     @Test
@@ -64,15 +65,15 @@ public abstract class AbstractArrayStorageTest {
         Resume[] expecteds = {RESUME_1, RESUME_2, RESUME_3};
         Arrays.sort(expecteds);
         Arrays.sort(actuals);
-        Assert.assertArrayEquals(expecteds, actuals);
+        assertArrayEquals(expecteds, actuals);
     }
 
     @Test
     public void save() throws Exception {
         Resume resume_4 = new Resume("uuid_4");
         storage.save(resume_4);
-        Assert.assertEquals(4, storage.size());
-        Assert.assertEquals(4, storage.getAll().length);
+        assertEquals(4, storage.size());
+        assertEquals(4, storage.getAll().length);
     }
 
     @Test(expected = ExistStorageException.class)
@@ -89,12 +90,12 @@ public abstract class AbstractArrayStorageTest {
                 storage.save(new Resume("uuid" + i));
             }
         } catch (StorageException e) {
-            Assert.fail("The overflow occurred earlier than expected!");
+            fail("The overflow occurred earlier than expected!");
         }
 
         try {
             storage.save(new Resume("overflow_uuid"));
-            Assert.fail("Expected StorageException was not thrown");
+            fail("Expected StorageException was not thrown");
         } catch (StorageException e) {
             Assert.assertEquals("Storage overflow", e.getMessage());
         }
@@ -103,8 +104,8 @@ public abstract class AbstractArrayStorageTest {
     @Test
     public void delete() throws Exception {
         storage.delete(UUID_1);
-        Assert.assertEquals(2, storage.size());
-        Assert.assertEquals(2, storage.getAll().length);
+        assertEquals(2, storage.size());
+        assertEquals(2, storage.getAll().length);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -114,9 +115,9 @@ public abstract class AbstractArrayStorageTest {
 
     @Test
     public void get() throws Exception {
-        Assert.assertEquals(RESUME_1, storage.get(UUID_1));
-        Assert.assertEquals(RESUME_2, storage.get(UUID_2));
-        Assert.assertEquals(RESUME_3, storage.get(UUID_3));
+        assertEquals(RESUME_1, storage.get(UUID_1));
+        assertEquals(RESUME_2, storage.get(UUID_2));
+        assertEquals(RESUME_3, storage.get(UUID_3));
     }
 
     @Test(expected = NotExistStorageException.class)
