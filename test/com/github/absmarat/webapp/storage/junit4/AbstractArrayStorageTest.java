@@ -71,7 +71,6 @@ public abstract class AbstractArrayStorageTest {
     public void getAll() throws Exception {
         Resume[] actuals = storage.getAll();
         Resume[] expecteds = {RESUME_1, RESUME_2, RESUME_3};
-        Arrays.sort(expecteds);
         Arrays.sort(actuals);
         assertArrayEquals(expecteds, actuals);
     }
@@ -118,7 +117,7 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void deleteNotExist() {
-        storage.delete("dummy");
+        storage.delete(UUID_4);
     }
 
     @Test
@@ -130,6 +129,6 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() throws Exception {
-        storage.get("dummy");
+        storage.get(UUID_4);
     }
 }
